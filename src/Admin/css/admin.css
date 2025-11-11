@@ -1,0 +1,155 @@
+/* ======== Layout general ======== */
+.admin-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f5f6fa;
+}
+
+.section-container {
+  min-height: 70vh; /* altura mínima consistente */
+}
+
+.placeholder-section.full-height {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+.menu-item {
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #374151;
+}
+
+.menu-item.active {
+  background-color: #4b5563;
+}
+
+/* ======== Área principal ======== */
+.content-area {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f5f6fa;
+}
+
+/* ======== Contenedor uniforme ======== */
+.section-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 85vh; /* mantiene altura uniforme */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======== Secciones vacías ======== */
+.placeholder-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  text-align: center;
+}
+
+/* ======== Tabla de clientes ======== */
+.clientes-container {
+  flex: 1;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.clientes-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.clientes-table th,
+.clientes-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  text-align: left;
+}
+
+.clientes-table th {
+  background-color: #f3f4f6;
+  color: #333;
+}
+
+.clientes-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* ======== Botones ======== */
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+}
+
+.btn.edit {
+  background-color: #2563eb;
+}
+
+.btn.edit:hover {
+  background-color: #1d4ed8;
+}
+
+.btn.save {
+  background-color: #10b981;
+}
+
+.btn.save:hover {
+  background-color: #059669;
+}
+
+/* ======== Responsividad ======== */
+@media (max-width: 900px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu-item {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  .section-container {
+    min-height: auto;
+    width: 95%;
+  }
+}

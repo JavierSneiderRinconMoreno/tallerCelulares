@@ -12,21 +12,55 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    const { data, error } = await supabase.auth.signInWithPassword({
+    setMensaje('')
+
+    // 🔹 1. Iniciar sesión con Supabase Auth
+    const { data: sessionData, error: loginError } = await supabase.auth.signInWithPassword({
       email: correo,
       password: clave
     })
-    if (error) return setMensaje(error.message)
+    if (loginError) return setMensaje(loginError.message)
 
-    const { data: tecnico } = await supabase
+    // 🔹 2. Verificar si el usuario está en la tabla tecnicos
+    const { data: tecnico, error: errorTec } = await supabase
       .from('tecnicos')
       .select('rol')
       .eq('correo', correo)
-      .single()
+      .maybeSingle()
 
-    if (tecnico?.rol === 'Administrador') navigate('/admin')
-    else if (tecnico?.rol === 'Técnico') navigate('/tecnico')
-    else navigate('/cliente')
+    if (errorTec) {
+      console.error(errorTec)
+      setMensaje('Error verificando rol del usuario')
+      return
+    }
+
+    // 🔹 3. Redirigir según el tipo de usuario
+    if (tecnico) {
+      if (tecnico.rol === 'Administrador') {
+        navigate('/admin')
+      } else {
+        navigate('/tecnico')
+      }
+    } else {
+      // 🔹 4. Si no está en tecnicos, verificar si es cliente
+      const { data: cliente, error: errorCli } = await supabase
+        .from('clientes')
+        .select('id_cliente')
+        .eq('correo', correo)
+        .maybeSingle()
+
+      if (errorCli) {
+        console.error(errorCli)
+        setMensaje('Error verificando cliente')
+        return
+      }
+
+      if (cliente) {
+        navigate('/cliente')
+      } else {
+        setMensaje('Usuario no encontrado en el sistema.')
+      }
+    }
   }
 
   const handleSeguimiento = async () => {

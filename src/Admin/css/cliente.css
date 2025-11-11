@@ -1,0 +1,71 @@
+.tabla-clientes {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.tabla-clientes th,
+.tabla-clientes td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: middle;
+}
+
+/* Fila editable */
+.tabla-clientes tr.editando td {
+  background-color: #f7f9fc;
+}
+
+/* Inputs dentro de la celda */
+.tabla-clientes input,
+.tabla-clientes select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* Evitar que se desborden del contenedor */
+.tabla-clientes input:focus,
+.tabla-clientes select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Botones */
+.tabla-clientes .acciones button {
+  margin: 2px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tabla-clientes .acciones .guardar {
+  background-color: #007bff;
+  color: white;
+}
+
+.tabla-clientes .acciones .guardar:hover {
+  background-color: #0056b3;
+}
+
+.tabla-clientes .acciones .cancelar {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.tabla-clientes .acciones .cancelar:hover {
+  background-color: #cfcfcf;
+}

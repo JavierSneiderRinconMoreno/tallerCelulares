@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { supabase } from '../supabase/client'
 import '../css/RegisterPage.css'
 
-
 export default function RegisterPage() {
   const [nombre, setNombre] = useState('')
   const [correo, setCorreo] = useState('')
@@ -11,17 +10,42 @@ export default function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault()
+    setMensaje('Registrando...')
 
+    // Registrar usuario en Supabase Auth
     const { data, error } = await supabase.auth.signUp({
       email: correo,
       password: clave
     })
 
-    if (error) return setMensaje(error.message)
+    console.log('🔍 Resultado signUp:', { data, error })
 
-    // Crear registro en tabla clientes
-    await supabase.from('clientes').insert([{ nombre, correo }])
-    setMensaje('Cliente registrado exitosamente.')
+    if (error) {
+      console.error('❌ Error en signUp:', error)
+      setMensaje('Error: ' + error.message)
+      return
+    }
+
+    const user = data?.user
+    if (!user) {
+      console.warn('⚠️ No se devolvió usuario, revisa confirmación de correo')
+      return
+    }
+
+    console.log('✅ Usuario creado:', user)
+
+    // Insertar datos en la tabla clientes (sin enviar id_cliente)
+    const { error: insertError } = await supabase.from('clientes').insert([
+      { nombre, correo }
+    ])
+
+    if (insertError) {
+      console.error('❌ Error al insertar cliente:', insertError)
+      setMensaje('Error al guardar cliente: ' + insertError.message)
+      return
+    }
+
+    setMensaje('✅ Cliente registrado exitosamente.')
   }
 
   return (
